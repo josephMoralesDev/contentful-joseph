@@ -1,0 +1,28 @@
+body {
+    background-color: #333;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 35px;
+  }
+  
+  path {
+    fill: transparent;
+  }
+  
+  text {
+    fill: #ffffff;
+  }
+  
+  .social {
+    position: relative;
+    height: 800px;
+    width: 390px;
+  }
+  
+  .social .gradient {
+    height: 1103px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 390px;
+  }

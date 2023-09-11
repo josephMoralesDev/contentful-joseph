@@ -1,0 +1,38 @@
+body {
+  background-color: #333;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 35px;
+}
+
+path {
+  fill: transparent;
+}
+
+text {
+  fill: #ffffff;
+}
+
+.home {
+  position: relative;
+}
+
+.home .ellipse {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  top: 200px;
+}
+
+.home {
+  height: 600px;
+  width: 390px;
+}
+
+.home .gradient {
+  height: 1103px;
+  left: 0;
+  object-fit: cover;
+  position: fixed;
+  top: 0;
+  width: 390px;
+}

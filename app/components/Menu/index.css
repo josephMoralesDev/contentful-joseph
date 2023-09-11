@@ -1,0 +1,13 @@
+ul {
+    list-style: disc;
+    width: fit-content;
+}
+
+p::after {
+    content: "\a";
+    white-space: pre;
+}
+
+.item {
+    max-width: 500px;
+}

@@ -1,21 +1,59 @@
+import Home from './components/Home';
+import Menu from './components/Menu';
+import HoursLocations from './components/HoursLocations';
+import Social from './components/Social';
+import Nav from './components/Nav';
+
 const query = `query {
-  postCollection {
-    items{
-      title
-      coverImage {
+
+  asset(id: "53P5COIBqjaoMwXSIcGz8Z") {
+    url
+  }
+
+	pagesCollection {
+    items {
+      name
+      headline
+      image {
         url
       }
     }
   }
-  authorCollection{
+  
+  contentTypeLocationCollection{
+    items{
+      coordinate {
+        lat
+        lon
+        __typename
+      }
+      locationContent {
+        json
+      }
+    }
+  }
+  
+  menuCollection (order: name_ASC) {
     items{
       name
-      picture {
+      helper
+      menuContent {
+        json
+      }
+    }
+  }
+  
+  socialMediaCollection{
+    items{
+    	name
+      link
+      icon {
         url
       }
     }
   }
 }`;
+
 export async function getData() {
   const response = await fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
@@ -32,21 +70,17 @@ export async function getData() {
    return response;
 }
 
-export default async function Home() {
-  const { data } = await getData();
-  const { postCollection, authorCollection } = data;
-  console.log(authorCollection)
-  const list = authorCollection.items.map((author, i) => {
-    return (
-      <div key={i}>
-        <h1>{author.name}</h1>
-        <img src={author?.picture?.url} width={500} height={500} />
-      </div>
-    );
-  })
+export default async function Main() {
+  const { data: { pagesCollection, asset, menuCollection, contentTypeLocationCollection, socialMediaCollection } } = await getData();
+  const [ contact, home , locationPage, menuPage ] = pagesCollection.items;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {list}
+    <main className="flex min-h-screen flex-col justify-start items-center">
+      <Nav navLinks={pagesCollection.items}/>
+      <Home name={home.name} headline={home.headline} image={home.image.url} />
+      <Menu name={menuPage.name} menus={menuCollection.items} />
+      <HoursLocations name={locationPage.name} locations={contentTypeLocationCollection.items}/>
+      <Social name={contact.name} image={contact.image.url} socialCollection={socialMediaCollection.items}/>
     </main>
   )
 }
